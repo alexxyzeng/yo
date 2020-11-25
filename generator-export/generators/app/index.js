@@ -40,7 +40,6 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    console.log(this.props, "---- props");
     // This.fs.copy(
     //   this.templatePath("dummyfile.txt"),
     //   this.destinationPath("dummyfile.txt")

@@ -48,7 +48,7 @@ module.exports = class extends Generator {
     const extension = isTS ? "ts" : "js";
     childProcess.execSync(
       `npx generate-export ${path} ${fileName}.${extension} ${isTS}`,
-      { stdio: "inherit" }
+      { stdio: "inherit", cwd: path }
     );
   }
 

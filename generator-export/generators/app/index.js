@@ -3,6 +3,7 @@ const Generator = require("yeoman-generator");
 const chalk = require("chalk");
 const yosay = require("yosay");
 const process = require("process");
+const path = require("path");
 const childProcess = require("child_process");
 
 module.exports = class extends Generator {
@@ -21,7 +22,7 @@ module.exports = class extends Generator {
       },
       {
         type: "input",
-        name: "path",
+        name: "dirPath",
         message: "请输入要生成导出的路径",
         default: process.cwd()
       },
@@ -44,12 +45,14 @@ module.exports = class extends Generator {
     //   this.templatePath("dummyfile.txt"),
     //   this.destinationPath("dummyfile.txt")
     // );
-    const { isTS, path, fileName } = this.props;
+
+    const { isTS, dirPath, fileName } = this.props;
+    const wholePath = path.resolve(dirPath);
     const extension = isTS ? "ts" : "js";
-    childProcess.execSync(
-      `npx generate-export ${path} ${fileName}.${extension} ${isTS}`,
-      { stdio: "inherit", cwd: path }
-    );
+    childProcess.execSync(`npx generate-export . ${fileName}.${extension}`, {
+      stdio: "inherit",
+      cwd: wholePath
+    });
   }
 
   // Install() {
